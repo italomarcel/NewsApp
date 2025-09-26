@@ -1,24 +1,43 @@
+# Android gitignore for Critical TechWorks challenge
+# Gradle files
 .gradle/
-**/build/
-!src/**/build/
+build/
+
+# Android Studio / IntelliJ
 .idea/
 *.iml
-.idea_modules/
+
+# Android APK/AAB files
 *.apk
 *.aab
 *.dex
+
+# Local config files
 local.properties
+secrets.properties
+
+# Keystore files
+*.keystore
+*.jks
+
+# Android captures
 captures/
+
+# NDK
 .externalNativeBuild/
 .cxx/
+
+# Kotlin
 .kotlin/
-proguard/
+
+# Lint
 lint-results*.xml
+proguard/
+
+# OS files
 .DS_Store
 Thumbs.db
 *.log
-*.keystore
-*.jks
-secrets.properties
-**/kotlin-js-store/
-.kotlin-js-store/
+
+# News API Key (security)
+newsapi.key
