@@ -2,20 +2,18 @@ package com.company.newsapp
 
 import com.company.newsapp.models.Article
 import com.company.newsapp.models.Source
-import kotlinx.datetime.Instant
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
+import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertTrue
+import org.junit.Test
 
-/**
- * Unit tests for News App
- * Critical TechWorks Android Code Challenge requirement
- */
+import kotlin.time.ExperimentalTime
+
+
 class NewsViewModelTest {
 
+    @OptIn(ExperimentalTime::class)
     @Test
     fun testArticleDateSorting() {
-        // Test that articles are properly sorted by date
         val article1 = Article(
             source = Source("bbc", "BBC News"),
             author = "Test Author",
@@ -41,7 +39,6 @@ class NewsViewModelTest {
         val articles = listOf(article1, article2)
         val sortedArticles = articles.sortedByDescending { it.publishedDate }
         
-        // Newer article should be first
         assertEquals("New Article", sortedArticles[0].title)
         assertEquals("Old Article", sortedArticles[1].title)
     }
@@ -59,8 +56,9 @@ class NewsViewModelTest {
             content = "Content"
         )
         
-        // ID should be generated from source name and title hash
-        assertTrue(article.id.contains("BBC News"))
-        assertTrue(article.id.isNotEmpty())
+        assertTrue("ID should contain source name", article.id.contains("bbc-news"))
+        assertTrue("ID should contain URL part", article.id.contains("test"))
+        assertTrue("ID should not be empty", article.id.isNotEmpty())
+        assertEquals("ID should have expected format", "bbc-news-test-${article.url.hashCode().toString().replace("-", "0")}", article.id)
     }
 }
