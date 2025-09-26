@@ -31,7 +31,13 @@ data class Article(
             Instant.fromEpochMilliseconds(0)
         }
     
-    val id: String get() = "${source.name}-${title.hashCode().toString().replace("-", "0")}-${url.hashCode().toString().replace("-", "0")}"
+    val id: String get() = buildString {
+        append(source.name.replace(" ", "-").lowercase())
+        append("-")
+        append(url.substringAfterLast("/").take(20))
+        append("-")
+        append(url.hashCode().toString().replace("-", "0"))
+    }
 }
 
 @Parcelize
